@@ -1,30 +1,34 @@
-🛠 Setup Guide – OWASP Juice Shop API Testing
-📌 Project Overview
+\# 🛠 Setup Guide – OWASP Juice Shop API Testing
 
+## 📌 Project Overview
 This project demonstrates API testing and security analysis on OWASP Juice Shop using:
 
-Kali Linux
+- Kali Linux
+- Burp Suite
+- Browser Developer Tools
+- Nmap (basic reconnaissance)
 
-Burp Suite
+---
 
-Browser Developer Tools
+# 1️⃣ Environment Setup
 
-Nmap (basic recon)
+## 🔹 Step 1: Install OWASP Juice Shop
 
-1️⃣ Environment Setup
-🔹 Step 1: Install OWASP Juice Shop
-Option 1 – Using Docker (Recommended)
+### Option 1 – Using Docker (Recommended)
+
+```bash
 docker pull bkimminich/juice-shop
 docker run -d -p 3000:3000 bkimminich/juice-shop
 
-Access in browser:
-
+Access the application in your browser:
 http://localhost:3000
+
 Option 2 – Using Node.js
 git clone https://github.com/juice-shop/juice-shop.git
 cd juice-shop
 npm install
 npm start
+
 2️⃣ Configure Burp Suite
 
 Open Burp Suite
@@ -41,41 +45,39 @@ Install Burp CA certificate in browser
 
 3️⃣ Capturing API Request
 
-Open Juice Shop
+Open Juice Shop in browser
 
 Register a new user
 
-Intercept request:
+Intercept the request:
 
 POST /api/Users/
+Send request to Repeater
 
-Forward request to Repeater
+Modify the email parameter to test validation
 
-Modify email to test validation
-
-4️⃣ Observed Response
-
-Example response:
-
+4️⃣ Example Response Observed
 HTTP/1.1 400 Bad Request
+Content-Type: application/json
+
 {
-  "message":"Validation error",
-  "errors":[
-     {
-       "field":"email",
-       "message":"email must be unique"
-     }
+  "message": "Validation error",
+  "errors": [
+    {
+      "field": "email",
+      "message": "email must be unique"
+    }
   ]
 }
-5️⃣ What This Shows
+5️⃣ What This Demonstrates
 
-Input validation is implemented
+Server-side validation
 
-Unique constraint on email
+Unique constraint enforcement
 
-Proper HTTP status code (400)
+Proper HTTP status codes
 
-JSON error response structure
+Structured JSON error handling
 
 6️⃣ Tools Used
 
@@ -86,3 +88,15 @@ Burp Suite Community Edition
 OWASP Juice Shop
 
 Nmap
+
+7️⃣ Learning Outcomes
+
+Understanding API endpoints
+
+Intercepting HTTP requests
+
+Analyzing server responses
+
+Identifying validation mechanisms
+
+Practical exposure to OWASP Top 10 vulnerabilities
